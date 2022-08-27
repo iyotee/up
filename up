@@ -163,37 +163,34 @@ _EOF_
 
 #Update and clean
 
-if [ "$1" == "--clean" ]; then
+case $1 in
+  --clean)
     update
     clean
     leaveClean
-fi
-
-if [ "$1" == "--help" ]; then
+    ;;
+  --help)
     help
     exit
-fi
-
-if [ "$1" == "--remove" ]; then
+    ;;
+  --remove)
     remove
     leaveRemove
-fi
-
-if [ "$1" == "--quiet" ]; then
+    ;;
+  --quiet)
     updateQuiet
     exit
-fi
-
-if [ "$1" == "--quiet-clean" ]; then
+    ;;
+  --quiet-clean)
     updateQuiet
     cleanQuiet
     exit
-fi
-
-if [ "$1" == "--quiet-remove" ]; then
+    ;;
+  --quiet-remove)
     removeQuiet
     exit
-fi
+    ;;
+esac
 
 #Check for invalid argument
 
