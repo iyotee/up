@@ -124,7 +124,7 @@ _EOF_
 exit
 }
 
-up-help() {
+help() {
     less << _EOF_
 
     Press "q" to leave this page.
@@ -171,7 +171,7 @@ if [ "$1" == "--clean" ]; then
 fi
 
 if [ "$1" == "--help" ]; then
-    up-help
+    help
     exit
 fi
 
