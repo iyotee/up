@@ -24,8 +24,6 @@ dpkg -l | grep -qw less || sudo apt install less -yyq
 
 set -e 
 
-# Functions
-
 update() {
     echo "Starting full system update ..."
     sudo apt-get update -yy
@@ -112,7 +110,7 @@ up-help() {
 _EOF_
 }
 
-# Execution
+# Start here
 
 # Clear the display
 clear
