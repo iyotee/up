@@ -86,7 +86,7 @@ sudo mv ./up/up /bin && rm -rf up
 ## Usage
 
 ```sh
-up
+up --help
 ```
 
 That's it ! 🎊
