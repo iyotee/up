@@ -38,7 +38,7 @@ clean() {
 }
 
 remove() {
-echo -e "\n\e[1;32;1mRemoving orpahned packages ...\e[0m\n"
+echo -e "\n\e[1;32;1mRemoving orphaned packages ...\e[0m\n"
 sudo apt autoremove -yy
 sudo apt remove --purge $(dpkg -l | grep "^rc" | awk '{print $2}') -yy
 }
