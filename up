@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# up -- Debian/Ubuntu Update Tool (V 1.12)
+# up -- Debian/Ubuntu Update Tool (V 1.4)
 
 # filename          : up
 # description       : Advanced command to fully update system
