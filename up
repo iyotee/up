@@ -30,6 +30,7 @@ update() {
     echo "Starting full system update ..."
     sudo apt-get update -yy
     sudo apt-get dist-upgrade -yy
+    sudo apt-get full-upgrade -yy
 }
 
 clean() {
