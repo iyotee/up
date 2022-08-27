@@ -81,7 +81,7 @@ git clone https://github.com/iyotee/up.git
 2. Move the up to your /bin folder
 
 ```sh
-cd up && mv up /bin
+cd up && sudo mv up /bin
 ```
 
 ## Usage
