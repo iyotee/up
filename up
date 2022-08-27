@@ -59,15 +59,14 @@ updateQuiet() {
 }
 
 clean() {
-    header
     echo -e "\n\e[1;32;1mRemoving apt cache packages that can no longer be downloaded ...\e[0m\n"
-    sudo apt-get autoremove -yy
+    sudo apt-get --purge autoremove -yy
     sudo apt-get autoclean -yy
 }
 
 cleanQuiet() {
     echo -e "\n\e[1;32;1mRemoving apt cache packages that can no longer be downloaded ...\e[0m\n" 2>&1 >/dev/null
-    sudo apt-get autoremove -yy 2>&1 >/dev/null
+    sudo apt-get --purge autoremove -yy 2>&1 >/dev/null
     sudo apt-get autoclean -yy 2>&1 >/dev/null
 }
 
