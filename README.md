@@ -4,7 +4,7 @@ up is another bash tool that automates the update procedure for Debian and Ubunt
 
 <p align="center">
   <a href="https://github.com/Iyotee/up">
-    <img src="images/up.svg" alt="Logo" width="669" height="335">
+    <img src="up.svg" alt="Logo" width="669" height="335">
   </a>
 
   <h3 align="center">UP</h3>
