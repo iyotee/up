@@ -19,29 +19,71 @@
 
 dpkg -l | grep -qw less || sudo apt install less -yyq
 
-
 # Set BASH to quit script and exit on errors : 
 
 set -e 
 
+# ASCII header ( Electronic )
+
+header(){
+    cat << _EOF_
+
+ ▄         ▄  ▄▄▄▄▄▄▄▄▄▄▄                         ▄               ▄          ▄▄▄▄           ▄         ▄ 
+▐░▌       ▐░▌▐░░░░░░░░░░░▌                       ▐░▌             ▐░▌       ▄█░░░░▌         ▐░▌       ▐░▌
+▐░▌       ▐░▌▐░█▀▀▀▀▀▀▀█░▌                        ▐░▌           ▐░▌       ▐░░▌▐░░▌         ▐░▌       ▐░▌
+▐░▌       ▐░▌▐░▌       ▐░▌                         ▐░▌         ▐░▌         ▀▀ ▐░░▌         ▐░▌       ▐░▌
+▐░▌       ▐░▌▐░█▄▄▄▄▄▄▄█░▌      ▄▄▄▄▄▄▄▄▄▄▄         ▐░▌       ▐░▌             ▐░░▌         ▐░█▄▄▄▄▄▄▄█░▌
+▐░▌       ▐░▌▐░░░░░░░░░░░▌     ▐░░░░░░░░░░░▌         ▐░▌     ▐░▌              ▐░░▌         ▐░░░░░░░░░░░▌
+▐░▌       ▐░▌▐░█▀▀▀▀▀▀▀▀▀       ▀▀▀▀▀▀▀▀▀▀▀           ▐░▌   ▐░▌               ▐░░▌          ▀▀▀▀▀▀▀▀▀█░▌
+▐░▌       ▐░▌▐░▌                                       ▐░▌ ▐░▌                ▐░░▌                   ▐░▌
+▐░█▄▄▄▄▄▄▄█░▌▐░▌                                        ▐░▐░▌             ▄▄▄▄█░░█▄▄▄       ▄        ▐░▌
+▐░░░░░░░░░░░▌▐░▌                                         ▐░▌             ▐░░░░░░░░░░░▌     ▐░▌       ▐░▌
+ ▀▀▀▀▀▀▀▀▀▀▀  ▀                                           ▀               ▀▀▀▀▀▀▀▀▀▀▀       ▀         ▀ 
+                                                                                                        
+_EOF_
+}
+
 update() {
+    header
     echo -e "\n\e[1;32;1mStarting full system update ...\e[0m\n"
     sudo apt-get update -yy
     sudo apt-get dist-upgrade -yy
     sudo apt-get full-upgrade -yy
 }
 
+updateQuiet() {
+    echo -e "\n\e[1;32;1mStarting full system update ...\e[0m\n" 2>&1 >/dev/null
+    sudo apt-get update -yy 2>&1 >/dev/null
+    sudo apt-get dist-upgrade -yy 2>&1 >/dev/null
+    sudo apt-get full-upgrade -yy 2>&1 >/dev/null
+}
+
 clean() {
+    header
     echo -e "\n\e[1;32;1mRemoving apt cache packages that can no longer be downloaded ...\e[0m\n"
     sudo apt-get autoremove -yy
     sudo apt-get autoclean -yy
 }
 
-remove() {
-echo -e "\n\e[1;32;1mRemoving orphaned packages ...\e[0m\n"
-sudo apt autoremove -yy
-sudo apt remove --purge $(dpkg -l | grep "^rc" | awk '{print $2}') -yy
+cleanQuiet() {
+    echo -e "\n\e[1;32;1mRemoving apt cache packages that can no longer be downloaded ...\e[0m\n" 2>&1 >/dev/null
+    sudo apt-get autoremove -yy 2>&1 >/dev/null
+    sudo apt-get autoclean -yy 2>&1 >/dev/null
 }
+
+remove() {
+    header
+    echo -e "\n\e[1;32;1mRemoving orphaned packages ...\e[0m\n" 
+    sudo apt autoremove -yy
+    sudo apt remove --purge $(dpkg -l | grep "^rc" | awk '{print $2}') -yy 
+}
+
+removeQuiet() {
+    echo -e "\n\e[1;32;1mRemoving orphaned packages ...\e[0m\n" 2>&1 >/dev/null
+    sudo apt autoremove -yy 2>&1 >/dev/null
+    sudo apt remove --purge $(dpkg -l | grep "^rc" | awk '{print $2}') -yy 2>&1 >/dev/null
+}
+
 
 leaveClean(){
 #cyberlarge
@@ -55,7 +97,6 @@ cat << _EOF_
 _EOF_
 exit
 }
-
 
 leaveUpdate(){
 #cyberlarge
@@ -83,7 +124,6 @@ _EOF_
 exit
 }
 
-
 up-help() {
     less << _EOF_
 
@@ -98,6 +138,10 @@ up-help() {
 
     Running "up" with no options will update the apt chache and then perform a full distribution update automatically.
 
+    Options : 
+
+    COMMAND[--OPTION]
+
     up --clean          Full system update with cleanup.
 
     Adding the --clean option will invoke the apt commands to search for and remove
@@ -106,28 +150,17 @@ up-help() {
 
     up --remove         The "--remove" option only removes orphaned packages, leaving the apt cache alone.
 
+    up --quiet         The "--quiet" command is exactly the same as the "up" command, but without stdout
+
+    up --quiet-clean   The "--quiet-clean" command is exactly the same as the "up --clean" command, but without stdout
+
+    up --quiet-remove  The "--quiet-remove" command is exactly the same as the "up --remove" command, but without stdout
+
     up --help           Show this help page.
 _EOF_
 }
 
 # Start here
-
-# ASCII header ( Electronic ) 
-cat << _EOF_
-
- ▄         ▄  ▄▄▄▄▄▄▄▄▄▄▄                         ▄               ▄          ▄▄▄▄           ▄         ▄ 
-▐░▌       ▐░▌▐░░░░░░░░░░░▌                       ▐░▌             ▐░▌       ▄█░░░░▌         ▐░▌       ▐░▌
-▐░▌       ▐░▌▐░█▀▀▀▀▀▀▀█░▌                        ▐░▌           ▐░▌       ▐░░▌▐░░▌         ▐░▌       ▐░▌
-▐░▌       ▐░▌▐░▌       ▐░▌                         ▐░▌         ▐░▌         ▀▀ ▐░░▌         ▐░▌       ▐░▌
-▐░▌       ▐░▌▐░█▄▄▄▄▄▄▄█░▌      ▄▄▄▄▄▄▄▄▄▄▄         ▐░▌       ▐░▌             ▐░░▌         ▐░█▄▄▄▄▄▄▄█░▌
-▐░▌       ▐░▌▐░░░░░░░░░░░▌     ▐░░░░░░░░░░░▌         ▐░▌     ▐░▌              ▐░░▌         ▐░░░░░░░░░░░▌
-▐░▌       ▐░▌▐░█▀▀▀▀▀▀▀▀▀       ▀▀▀▀▀▀▀▀▀▀▀           ▐░▌   ▐░▌               ▐░░▌          ▀▀▀▀▀▀▀▀▀█░▌
-▐░▌       ▐░▌▐░▌                                       ▐░▌ ▐░▌                ▐░░▌                   ▐░▌
-▐░█▄▄▄▄▄▄▄█░▌▐░▌                                        ▐░▐░▌             ▄▄▄▄█░░█▄▄▄       ▄        ▐░▌
-▐░░░░░░░░░░░▌▐░▌                                         ▐░▌             ▐░░░░░░░░░░░▌     ▐░▌       ▐░▌
- ▀▀▀▀▀▀▀▀▀▀▀  ▀                                           ▀               ▀▀▀▀▀▀▀▀▀▀▀       ▀         ▀ 
-                                                                                                        
-_EOF_
 
 #Update and clean
 
@@ -145,6 +178,22 @@ fi
 if [ "$1" == "--remove" ]; then
     remove
     leaveRemove
+fi
+
+if [ "$1" == "--quiet" ]; then
+    updateQuiet
+    exit
+fi
+
+if [ "$1" == "--quiet-clean" ]; then
+    updateQuiet
+    cleanQuiet
+    exit
+fi
+
+if [ "$1" == "--quiet-remove" ]; then
+    removeQuiet
+    exit
 fi
 
 #Check for invalid argument
