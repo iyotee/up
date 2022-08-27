@@ -1,0 +1,164 @@
+#!/bin/bash
+
+# up -- Debian/Ubuntu Update Tool (V 1.12)
+
+# filename          : up
+# description       : Advanced command to fully update system
+# author            : Jeremy Noverraz
+# email             : jeremy.noverraz@gmail.com
+# date              : 20220827
+# version           : 1.4
+# usage             : up
+# notes             : Adding the option "--clean" will remove orphaned packages and auto-clean the apt cache.
+#                     Adding the option "--remove" will just remove orphaned packages and leave the apt cache alone.
+# license           : GNU/General Public License version 2.0
+#==============================================================================
+
+
+# check for less program and install if not exist
+
+dpkg -l | grep -qw less || sudo apt install less -yyq
+
+
+# Set BASH to quit script and exit on errors : 
+
+set -e 
+
+# Functions
+
+update() {
+    echo "Starting full system update ..."
+    sudo apt-get update -yy
+    sudo apt-get dist-upgrade -yy
+}
+
+clean() {
+    echo "Removing apt cache packages that can no longer be downloaded ..."
+    sudo apt-get autoremove -yy
+    sudo apt-get autoclean -yy
+}
+
+remove() {
+echo "Removing orpahned packages ..."
+sudo apt autoremove -yy
+sudo apt remove --purge $(dpkg -l | grep "^rc" | awk '{print $2}') -yy
+}
+
+leaveClean(){
+#cyberlarge
+cat << _EOF_
+
+ _______        _______ _______ __   _      _______  _____  _______  _____         _______ _______ _______ ______         /
+ |       |      |______ |_____| | \  |      |       |     | |  |  | |_____] |      |______    |    |______ |     \       / 
+ |_____  |_____ |______ |     | |  \_|      |_____  |_____| |  |  | |       |_____ |______    |    |______ |_____/      .  
+                                                                                                                           
+                                                                                                                                                                                                                                                                                                                                                                                 
+_EOF_
+exit
+}
+
+
+leaveUpdate(){
+#cyberlarge
+cat << _EOF_
+
+ _     _  _____  ______  _______ _______ _______      _______  _____  _______  _____         _______ _______ _______ ______         /
+ |     | |_____] |     \ |_____|    |    |______      |       |     | |  |  | |_____] |      |______    |    |______ |     \       / 
+ |_____| |       |_____/ |     |    |    |______      |_____  |_____| |  |  | |       |_____ |______    |    |______ |_____/      .  
+                                                                                                                                                                                                                                                                         
+                                                                                                                                     
+_EOF_
+exit
+}
+
+leaveRemove(){
+#cyberlarge
+cat << _EOF_
+
+  ______ _______ _______  _____  _    _ _______      _______  _____  _______  _____         _______ _______ _______ ______         /
+ |_____/ |______ |  |  | |     |  \  /  |______      |       |     | |  |  | |_____] |      |______    |    |______ |     \       / 
+ |    \_ |______ |  |  | |_____|   \/   |______      |_____  |_____| |  |  | |       |_____ |______    |    |______ |_____/      .  
+                                                                                                                                    
+                                                                                                                          
+_EOF_
+exit
+}
+
+
+up-help() {
+    less << _EOF_
+
+    Press "q" to leave this page.
+
+
+    up is a tool that automates the update procedure for Debian and Ubuntu based Linux systems.
+
+    Commands: 
+
+    up                  Full system update.
+
+    Running "up" with no options will update the apt chache and then perform a full distribution update automatically.
+
+    up --clean          Full system update with cleanup.
+
+    Adding the --clean option will invoke the apt commands to search for and remove
+    locally cached packages that are no longer in the repositories and also remove
+    orphaned packages that are no longer needed by programs.
+
+    up --remove         The "--remove" option only removes orphaned packages, leaving the apt cache alone.
+
+    up --help           Show this help page.
+_EOF_
+}
+
+# Execution
+
+# Clear the display
+clear
+
+# ASCII header ( Electronic ) 
+cat << _EOF_
+
+ ▄         ▄  ▄▄▄▄▄▄▄▄▄▄▄                         ▄               ▄          ▄▄▄▄           ▄         ▄ 
+▐░▌       ▐░▌▐░░░░░░░░░░░▌                       ▐░▌             ▐░▌       ▄█░░░░▌         ▐░▌       ▐░▌
+▐░▌       ▐░▌▐░█▀▀▀▀▀▀▀█░▌                        ▐░▌           ▐░▌       ▐░░▌▐░░▌         ▐░▌       ▐░▌
+▐░▌       ▐░▌▐░▌       ▐░▌                         ▐░▌         ▐░▌         ▀▀ ▐░░▌         ▐░▌       ▐░▌
+▐░▌       ▐░▌▐░█▄▄▄▄▄▄▄█░▌      ▄▄▄▄▄▄▄▄▄▄▄         ▐░▌       ▐░▌             ▐░░▌         ▐░█▄▄▄▄▄▄▄█░▌
+▐░▌       ▐░▌▐░░░░░░░░░░░▌     ▐░░░░░░░░░░░▌         ▐░▌     ▐░▌              ▐░░▌         ▐░░░░░░░░░░░▌
+▐░▌       ▐░▌▐░█▀▀▀▀▀▀▀▀▀       ▀▀▀▀▀▀▀▀▀▀▀           ▐░▌   ▐░▌               ▐░░▌          ▀▀▀▀▀▀▀▀▀█░▌
+▐░▌       ▐░▌▐░▌                                       ▐░▌ ▐░▌                ▐░░▌                   ▐░▌
+▐░█▄▄▄▄▄▄▄█░▌▐░▌                                        ▐░▐░▌             ▄▄▄▄█░░█▄▄▄       ▄        ▐░▌
+▐░░░░░░░░░░░▌▐░▌                                         ▐░▌             ▐░░░░░░░░░░░▌     ▐░▌       ▐░▌
+ ▀▀▀▀▀▀▀▀▀▀▀  ▀                                           ▀               ▀▀▀▀▀▀▀▀▀▀▀       ▀         ▀ 
+                                                                                                        
+_EOF_
+
+#Update and clean
+
+if [ "$1" == "--clean" ]; then
+    update
+    clean
+    leaveClean
+fi
+
+if [ "$1" == "--help" ]; then
+    up-help
+    exit
+fi
+
+if [ "$1" == "--remove" ]; then
+    remove
+    leaveRemove
+fi
+
+#Check for invalid argument
+
+if [ -n "$1" ]; then
+echo -e "Error: Invalid argument. Try 'up --help for more info\n" >&2
+exit 1
+fi 
+
+# No arguments, just "up"
+
+update
+leaveUpdate
