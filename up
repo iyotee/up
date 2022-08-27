@@ -32,7 +32,7 @@ update() {
 }
 
 clean() {
-    echo "Removing apt cache packages that can no longer be downloaded ..."
+    echo -e "\e[1;32;1mRemoving apt cache packages that can no longer be downloaded ...\e[0m"
     sudo apt-get autoremove -yy
     sudo apt-get autoclean -yy
 }
