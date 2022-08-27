@@ -25,20 +25,20 @@ dpkg -l | grep -qw less || sudo apt install less -yyq
 set -e 
 
 update() {
-    echo "Starting full system update ..."
+    echo -e "\n\e[1;32;1mStarting full system update ...\e[0m"
     sudo apt-get update -yy
     sudo apt-get dist-upgrade -yy
     sudo apt-get full-upgrade -yy
 }
 
 clean() {
-    echo -e "\e[1;32;1mRemoving apt cache packages that can no longer be downloaded ...\e[0m"
+    echo -e "\n\e[1;32;1mRemoving apt cache packages that can no longer be downloaded ...\e[0m"
     sudo apt-get autoremove -yy
     sudo apt-get autoclean -yy
 }
 
 remove() {
-echo "Removing orpahned packages ..."
+echo "\n\e[1;32;1mRemoving orpahned packages ...\e[0m"
 sudo apt autoremove -yy
 sudo apt remove --purge $(dpkg -l | grep "^rc" | awk '{print $2}') -yy
 }
