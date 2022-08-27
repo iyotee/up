@@ -77,10 +77,10 @@ No Prerequisities !
 git clone https://github.com/iyotee/up.git
 ```
 
-2. Move the up to your /bin folder
+2. Copy the up to your /bin folder
 
 ```sh
-sudo mv ./up/up /bin && rm -rf up
+sudo cp ./up/up /bin && rm -rf up
 ```
 
 ## Usage
