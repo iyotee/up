@@ -46,7 +46,6 @@ up is another bash tool that automates the update procedure for Debian and Ubunt
 
 up is another bash tool that automates the update procedure for Debian and Ubuntu based Linux systems.
 
-![Screen Shot](images/screenshot.png)
 
 Here's why:
 
