@@ -10,7 +10,7 @@ up is another bash tool that automates the update procedure for Debian and Ubunt
   <h3 align="center">UP</h3>
 
   <p align="center">
-    up is another bash tool that automates the update procedure for Debian and Ubuntu based Linux systems.
+    up is another bash command tool that automates the update procedure for Debian and Ubuntu based Linux systems.
     <br/>
     <br/>
     <a href="https://github.com/Iyotee/up"><strong>Explore the docs »</strong></a>
