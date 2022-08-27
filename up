@@ -112,9 +112,6 @@ _EOF_
 
 # Start here
 
-# Clear the display
-clear
-
 # ASCII header ( Electronic ) 
 cat << _EOF_
 
