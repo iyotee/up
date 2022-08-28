@@ -17,7 +17,7 @@
 
 # check for less program and install if not exist
 
-dpkg -l | grep -qw less || sudo apt install less -yyq
+dpkg -l | grep -qw less || sudo apt install less -yy
 
 # Set BASH to quit script and exit on errors : 
 
