@@ -193,6 +193,7 @@ case $1 in
 esac
 
 #Check for invalid argument
+#       -n STRING   -> the length of STRING is nonzero // man test for more info
 
 if [ -n "$1" ]; then
 echo -e "Error: Invalid argument. Try 'up --help for more info\n" >&2
