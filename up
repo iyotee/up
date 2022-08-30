@@ -6,7 +6,6 @@
 # description       : Advanced command to fully update system
 # author            : Jeremy Noverraz
 # email             : jeremy.noverraz@gmail.com
-# date              : 20220827
 # version           : 1.4
 # usage             : up
 # notes             : Adding the option "--clean" will remove orphaned packages and auto-clean the apt cache.
