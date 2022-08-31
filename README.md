@@ -115,7 +115,3 @@ Contributions are what make the open source community such an amazing place to b
 ## License
 
 Distributed under the MIT License. See [LICENSE](https://github.com/Iyotee/up/blob/main/LICENSE.md) for more information.
-
-## Authors
-
-* **Jérémy Noverraz** - *Comp Sci enthousiast* - [Iyotee](https://github.com/iyotee/) - *Made with a lot of coffee*
