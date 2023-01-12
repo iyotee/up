@@ -65,7 +65,9 @@ Clone this repo
 
 ### Prerequisites
 
-No Prerequisities !
+Git -> ```sh
+apt-get install git
+```
 
 
 ### Installation
