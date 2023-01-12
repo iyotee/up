@@ -68,7 +68,7 @@ Clone this repo
 Git ->
 
 ```sh
-apt-get install git
+apt-get install git -y
 ```
 
 
