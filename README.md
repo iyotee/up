@@ -65,7 +65,9 @@ Clone this repo
 
 ### Prerequisites
 
-Git -> ```sh
+Git ->
+
+```sh
 apt-get install git
 ```
 
